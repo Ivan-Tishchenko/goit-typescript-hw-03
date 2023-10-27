@@ -21,11 +21,18 @@ class Person {
   }
 }
 
-class House {
+abstract class House {
   private door: boolean;
+  protected tenants: Person[] = [];
 
   constructor(protected key: number) {
     this.door = false;
+  }
+
+  public comeIn(person: Person): void {
+    if (this.door) {
+      this.tenants.push(person);
+    }
   }
 
   public getDoor(): boolean {
@@ -35,6 +42,8 @@ class House {
   protected setDoor(): void {
     this.door = !this.door;
   }
+
+  abstract openDoor(key: number): void;
 }
 
 class MyHouse extends House {
@@ -48,13 +57,6 @@ class MyHouse extends House {
       return "sucsesful!!!";
     }
     return "error, try new key";
-  }
-
-  public comeIn(person: object): string {
-    // персон записується до відповідних змінних..
-    return this.getDoor()
-      ? "you are come in"
-      : "error, door closed";
   }
 }
 
